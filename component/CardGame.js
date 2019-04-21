@@ -1,6 +1,6 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom'
-import  Card from 'react-bootstrap/lib/Card';
+import { findDOMNode } from 'react-dom';
+import Modal from 'react-bootstrap/Modal';
 import {
 	DragSource,
 	DropTarget,
@@ -13,7 +13,6 @@ import {
 } from 'react-dnd'
 import flow from 'lodash/flow';
 import { XYCoord } from 'dnd-core'
-import  Modal from 'react-bootstrap/lib/Modal';
 import gandalf from '../images/gandalf.jpg';
 
 const style = {
@@ -26,13 +25,12 @@ const style = {
 
 const cardSource = {
 	beginDrag(props){
-		
+
 		return {
 			id :props.id,
 			index : props.index,
 			player: props.player,
 			card: props.card,
-
 		}
 	},
 
@@ -73,7 +71,7 @@ class CardGame extends React.Component {
     	this.setState({ end: false });
   	}
 	render() {
-	
+
 		const {
 			text,
 			isDragging,
@@ -81,15 +79,15 @@ class CardGame extends React.Component {
 			connectDropTarget,
 		} = this.props
 		const card = this.props.card;
-		const opacity = isDragging ? 0.5 : 1; 
+		const opacity = isDragging ? 0.5 : 1;
 		return connectDragSource(
-					
+
 			<li>
 				<div className="card-game" style={{opacity}} draggable>
 					<div className="card-game-image">
 						<img src={gandalf} width="100%" height="100%" />
-					</div> 
-					
+					</div>
+
 					<div className="card-game-details">
 						 <h4 className="mdl-card__title-text">{card.name}</h4>
 						 <span>Life : {card.life}</span>
@@ -99,23 +97,23 @@ class CardGame extends React.Component {
 						 </ul>
 						 	<>
 						 		<button  onClick={this.toggle}>Details</button>
-							 	<Modal 
-							 	show={this.state.end}   
+							 	<Modal
+							 	show={this.state.end}
 							 	onHide={this.handleClose}
 							 	size="lg"
 							    aria-labelledby="contained-modal-title-vcenter"
 							    centered
 							     >
 							    <Modal.Header closeButton>
-					                          
-									            <Modal.Title> 
+
+									            <Modal.Title>
 									            <img className="picture-character-modal"
-									             src={gandalf} 
-									             id={`picture-${card.id}`}  
+									             src={gandalf}
+									             id={`picture-${card.id}`}
 									             />
 									      <h3 className="title-character-modal">{card.name}</h3>
 									      </Modal.Title>
-									 </Modal.Header>	      
+									 </Modal.Header>
 									       <Modal.Body>
 									       <ul>
 									       		<li>Attack : {card.attack}</li>
@@ -123,23 +121,23 @@ class CardGame extends React.Component {
 											 	<li>Race: {card.race}</li>
 											 	<li>Class: {card.class}</li>
 											 	<li>Weakness: {card.weakness}</li>
-											 
+
 											</ul>
 											<blockquote> <cite>"{card.quote}"</cite></blockquote>
 									       </Modal.Body>
-								
+
 							 	</Modal>
 						 	</>
 					</div>
 					<div className="clearfix"></div>
-				</div>	
+				</div>
 			</li>,);
-			
-			
+
+
 	}
 }
 
- 
+
 export default flow(
   DragSource('item', cardSource, collect)
   )(CardGame);

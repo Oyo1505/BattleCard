@@ -22,7 +22,7 @@ const cardTarget = {
 
     	 // Obtain the dragged item
     	const item = monitor.getItem();
-    	
+
     	return props.handleDrop(item, props.player.name );
     }
 
@@ -45,27 +45,23 @@ function collect(connect, monitor){
 
 	constructor(props) {
 		super(props);
-		
-		this.state = { life : 0,}
 	}
 
 
 	render() {
-	
+
 
 		const {connectDropTarget, isOver, item, isDragging} = this.props;
-		
-		const backgroundColor = isOver ? 'lightgreen' : 'white';			
 
-		return connectDropTarget( 		
-				<div className="player-part" id={`${this.props.player.name}-part`}   >	
-				<div className="wrapper">			
-				{this.props.player.card[0] && 
-					 
+		return connectDropTarget(
+				<div className="player-part" id={`${this.props.player.name}-part`}   >
+				<div className="wrapper">
+				{this.props.player.card[0] && this.props.player.card[0].attack &&
+
 					    <div className="clash-card barbarian">
 					      <div className="clash-card__image clash-card__image--barbarian">
 					        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/barbarian.png" alt="barbarian" />
-					      </div>      
+					      </div>
 					      <div className="clash-card__unit-name">{this.props.player.card[0].name}</div>
 					      <div className="clash-card__unit-description">
 					        {this.props.player.card[0].quote}
@@ -89,10 +85,10 @@ function collect(connect, monitor){
 
 					      </div>
 
-					    </div> 
-					  
+					    </div>
+
 				}
-				</div> 
+				</div>
 			</div>
 		);
 	}
